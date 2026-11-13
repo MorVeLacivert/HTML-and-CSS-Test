@@ -1,174 +1,88 @@
-:root {
-  --sauce: #d9261c;
-  --cheese: #ffc61a;
-  --crust: #7a3e17;
-  --night: #2a1640;
-  --ink: #1b0f26;
-  --paper: #fff7e0;
-  --display: Impact, "Arial Black", "Haettenschweiler", sans-serif;
-  --body: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
-}
-
-*, *::before, *::after { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
 body {
   margin: 0;
-  font-family: var(--body);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: var(--ink);
-  background: var(--night);
-}
-
-h1, h2, h3 {
-  font-family: var(--display);
-  font-weight: 400;
-  line-height: 1;
-  margin: 0 0 0.6em;
-}
-
-p { max-width: 60ch; margin: 0 0 1em; }
-
-/* Hero */
-.hero {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2rem clamp(1.25rem, 8vw, 6rem);
-  color: var(--paper);
-  background:
-    repeating-linear-gradient(135deg, transparent 0 40px, rgba(255,198,26,0.06) 40px 80px),
-    var(--night);
-}
-
-.logo {
-  font-size: clamp(4.5rem, 20vw, 13rem);
-  letter-spacing: -0.02em;
-  color: var(--cheese);
-  text-shadow: 0.05em 0.05em 0 var(--sauce), 0.1em 0.1em 0 var(--ink);
-  transform: rotate(-4deg);
-  transform-origin: left bottom;
-  animation: drop 0.7s cubic-bezier(.3,1.6,.5,1) both;
-}
-
-@keyframes drop {
-  from { transform: translateY(-60vh) rotate(-14deg); }
-  to   { transform: translateY(0) rotate(-4deg); }
-}
-
-.tagline { font-size: 1.3rem; margin: 1.5rem 0 2rem; }
-
-.btn {
-  display: inline-block;
-  padding: 0.7em 1.4em;
-  font-family: var(--display);
-  font-size: 1.4rem;
-  color: var(--ink);
-  background: var(--cheese);
-  border: 3px solid var(--ink);
-  box-shadow: 6px 6px 0 var(--sauce);
-  text-decoration: none;
-  transition: transform 0.12s, box-shadow 0.12s;
-}
-.btn:hover { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--sauce); }
-
-a:focus-visible { outline: 4px solid var(--paper); outline-offset: 4px; }
-
-/* Floors: slanted bands, stacked like tower levels */
-.floor {
-  padding: 5rem clamp(1.25rem, 8vw, 6rem);
-  margin-top: -2rem;
-  clip-path: polygon(0 2rem, 100% 0, 100% calc(100% - 2rem), 0 100%);
-}
-.floor h2 { font-size: clamp(2.2rem, 6vw, 4rem); }
-
-.floor-red    { background: var(--sauce);  color: var(--paper); }
-.floor-yellow { background: var(--cheese); color: var(--ink); }
-.floor-purple { background: #4a2a72;       color: var(--paper); }
-.floor-brown  { background: var(--crust);  color: var(--paper); }
-
-/* Gameplay tiles */
-.tiles {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-}
-.tiles li {
-  background: var(--paper);
-  border: 3px solid var(--ink);
-  padding: 1.25rem;
-  box-shadow: 6px 6px 0 var(--ink);
-}
-.tiles li:nth-child(odd)  { transform: rotate(-1.2deg); }
-.tiles li:nth-child(even) { transform: rotate(1.2deg); }
-.tiles h3 { font-size: 1.6rem; color: var(--sauce); }
-.tiles p { margin: 0; }
-
-/* Cast */
-.cast {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-}
-.cast article { border-left: 6px solid var(--cheese); padding-left: 1rem; }
-.cast h3 { font-size: 1.7rem; color: var(--cheese); }
-.cast p { margin: 0; }
-
-/* Ranks */
-.ranks { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
-.rank {
   display: grid;
   place-items: center;
-  width: 4rem;
-  height: 4rem;
-  font-family: var(--display);
-  font-size: 2.2rem;
-  color: var(--ink);
-  border: 3px solid var(--ink);
-  box-shadow: 4px 4px 0 var(--ink);
+  background: #1b0f26;
+  font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+  color: #fff7e0;
 }
-.r-d { background: #b9b0a0; }
-.r-c { background: #c98a4b; }
-.r-b { background: #7cc576; }
-.r-a { background: #5fb4e8; }
-.r-s { background: var(--cheese); }
-.r-p { background: var(--sauce); color: var(--paper); transform: scale(1.2) rotate(-6deg); margin-left: 0.5rem; }
 
-/* Levels */
-.levels {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+main { width: min(96vw, 960px); }
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #2a1640;
+  border: 4px solid #ffc61a;
+  box-shadow: 8px 8px 0 #d9261c;
+  image-rendering: pixelated;
+}
+
+canvas:focus-visible { outline: 4px solid #fff7e0; outline-offset: 4px; }
+
+.controls {
+  margin: 1.5rem 0 0;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* Menu */
+.stage { position: relative; }
+
+.panel {
+  position: absolute;
+  inset: 4px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 1rem;
+  text-align: center;
+  background: rgba(27, 15, 38, 0.88);
 }
-.levels li {
-  padding: 0.4em 1em;
-  font-family: var(--display);
-  font-size: 1.3rem;
-  background: var(--cheese);
-  color: var(--ink);
-  border: 3px solid var(--ink);
-}
+.hidden { display: none; }
 
-/* Footer */
-footer {
-  padding: 3rem clamp(1.25rem, 8vw, 6rem);
-  color: var(--paper);
-  background: var(--ink);
+.panel h1, .panel h2 {
+  margin: 0;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-weight: 400;
+  color: #ffc61a;
+  text-shadow: 4px 4px 0 #d9261c;
 }
-footer p { margin: 0; font-size: 0.95rem; }
+.panel h1 { font-size: clamp(3rem, 12vw, 6.5rem); line-height: 1; }
+.panel h2 { font-size: clamp(2rem, 6vw, 3.2rem); }
+.panel p { margin: 0; max-width: 40ch; }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .logo { animation: none; }
-  .btn { transition: none; }
+button {
+  font-family: Impact, "Arial Black", sans-serif;
+  color: #1b0f26;
+  background: #ffc61a;
+  border: 3px solid #1b0f26;
+  box-shadow: 6px 6px 0 #d9261c;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s;
 }
+button:hover, button:focus-visible { transform: translate(3px, 3px); box-shadow: 3px 3px 0 #d9261c; }
+button:focus-visible { outline: 3px solid #fff7e0; outline-offset: 3px; }
+
+.big { font-size: 2.2rem; padding: 0.4em 1.8em; }
+.small { font-size: 1.1rem; padding: 0.4em 1.2em; }
+
+.choices { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; }
+.choices button {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 200px;
+  padding: 1rem;
+}
+.choices strong { font-size: 1.8rem; font-weight: 400; }
+.choices span { font-family: "Trebuchet MS", "Segoe UI", sans-serif; font-size: 0.95rem; }
+.choices button:nth-child(1) { background: #7cc576; }
+.choices button:nth-child(2) { background: #ffc61a; }
+.choices button:nth-child(3) { background: #ff6a4d; }
+
+@media (prefers-reduced-motion: reduce) { button { transition: none; } }

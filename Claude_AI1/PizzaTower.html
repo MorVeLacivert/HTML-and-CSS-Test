@@ -3,101 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pizza Tower: A Fan Page</title>
-  <link rel="stylesheet" href="PizzaTower.css">
+  <title>John Gutter: Fan Game</title>
+  <link rel="stylesheet" href="game.css">
 </head>
 <body>
-
-  <header class="hero">
-    <h1 class="logo">Pizza<br>Tower</h1>
-    <p class="tagline">A fast, loud, hand-drawn platformer about a panicking chef and a very angry pizza.</p>
-    <a class="btn" href="#about">Climb the tower</a>
-  </header>
-
   <main>
-    <section id="about" class="floor floor-red">
-      <h2>What is it?</h2>
-      <p>Pizza Tower is a 2D platformer made by Tour De Pizza and released in January 2023. It takes its speed and slapstick spirit from the Wario Land series. You play Peppino Spaghetti, a nervous chef whose pizzeria is threatened by a giant floating pizza, Pizzaface.</p>
-      <p>Each level is a sprint: explore, rack up points, then escape before the timer runs out.</p>
-    </section>
+    <div class="stage">
+      <canvas id="game" width="960" height="540" tabindex="0" aria-label="John Gutter level"></canvas>
 
-    <section class="floor floor-yellow">
-      <h2>How it plays</h2>
-      <ul class="tiles">
-        <li>
-          <h3>Mach run</h3>
-          <p>Hold a direction to build speed through four gears. Faster means more power and more risk.</p>
-        </li>
-        <li>
-          <h3>Combos</h3>
-          <p>Keep hitting enemies and collecting toppings to build a combo before it times out.</p>
-        </li>
-        <li>
-          <h3>Escape</h3>
-          <p>Grab the exit trigger and the level flips into a countdown. Run back before it hits zero.</p>
-        </li>
-        <li>
-          <h3>Taunt</h3>
-          <p>Peppino can taunt at any time. It's silly, and it's also part of the scoring and secrets.</p>
-        </li>
-      </ul>
-    </section>
-
-    <section class="floor floor-purple">
-      <h2>Who's who</h2>
-      <div class="cast">
-        <article>
-          <h3>Peppino Spaghetti</h3>
-          <p>The hero. Anxious, expressive, and surprisingly fast.</p>
-        </article>
-        <article>
-          <h3>Gustavo &amp; Brick</h3>
-          <p>A gnome chef and his pet rat. Together they have a playstyle of their own.</p>
-        </article>
-        <article>
-          <h3>The Noise</h3>
-          <p>Peppino's chaotic rival, with a different set of moves.</p>
-        </article>
-        <article>
-          <h3>Pizzaface</h3>
-          <p>The big, grinning threat at the top of it all.</p>
-        </article>
+      <div id="menu" class="panel">
+        <h1>John Gutter</h1>
+        <p>A Pizza Tower fan game. Grab toppings, smash blocks, then escape the tower. Look out for ghost potions, speed potions and bird wings.</p>
+        <button id="startBtn" class="big">Start</button>
       </div>
-    </section>
 
-    <section class="floor floor-brown">
-      <h2>Rank your run</h2>
-      <p>Every level ends with a grade based on your score. Reach the top for an S, then go for the P rank, which asks for more than points.</p>
-      <div class="ranks" aria-label="Ranks from lowest to highest">
-        <span class="rank r-d">D</span>
-        <span class="rank r-c">C</span>
-        <span class="rank r-b">B</span>
-        <span class="rank r-a">A</span>
-        <span class="rank r-s">S</span>
-        <span class="rank r-p">P</span>
+      <div id="difficulty" class="panel hidden">
+        <h2>Choose difficulty</h2>
+        <div class="choices">
+          <button data-diff="easy"><strong>Easy</strong><span>4 minute escape<br>1 lap for a P rank</span></button>
+          <button data-diff="medium"><strong>Medium</strong><span>2 minute escape<br>3 laps for a P rank</span></button>
+          <button data-diff="hard"><strong>Hard</strong><span>1 minute escape<br>4 laps for a P rank</span></button>
+        </div>
+        <button id="backBtn" class="small">Back</button>
       </div>
-    </section>
-
-    <section class="floor floor-red">
-      <h2>A few floors</h2>
-      <ul class="levels">
-        <li>Pizzascape</li>
-        <li>Ancient Cheese</li>
-        <li>Bloodsauce Dungeon</li>
-        <li>Oregano Desert</li>
-        <li>Wasteyard</li>
-        <li>Fun Farm</li>
-        <li>Crust Cove</li>
-        <li>Gnome Forest</li>
-        <li>Deep-Dish 9</li>
-        <li>The Pig City</li>
-      </ul>
-    </section>
+    </div>
+    <p class="controls">
+      Move: Arrows or A/D &nbsp;|&nbsp; Jump: Space &nbsp;|&nbsp; Run (hold): Shift &nbsp;|&nbsp; Taunt: T &nbsp;|&nbsp; Replay: Enter &nbsp;|&nbsp; Menu: M &nbsp;|&nbsp; Music: N
+    </p>
   </main>
-
-  <footer>
-    <p>An unofficial fan page. Pizza Tower belongs to Tour De Pizza.</p>
-  </footer>
-
+  <script src="game.js"></script>
 </body>
 </html>

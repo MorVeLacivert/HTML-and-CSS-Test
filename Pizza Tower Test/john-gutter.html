@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>John Gutter: Fan Game</title>
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+
+  <header class="hero">
+    <h1 class="logo">John<br>Gutter</h1>
+    <p class="tagline">A fast, loud Pizza Tower fan level. Grab the toppings, smash the walls, then run for your life.</p>
+    <a class="cta" href="#play">Play now</a>
+  </header>
+
+  <main>
+    <section id="play" class="band band-game">
+      <div class="stage">
+        <canvas id="game" width="960" height="540" tabindex="0" aria-label="John Gutter level"></canvas>
+
+        <div id="menu" class="panel">
+          <h2 class="panel-title">John Gutter</h2>
+          <p>Grab toppings, smash blocks, then escape the tower. Look out for ghost potions, speed potions and bird wings.</p>
+          <button id="startBtn" class="big">Start</button>
+        </div>
+
+        <div id="difficulty" class="panel hidden">
+          <h2>Choose difficulty</h2>
+          <div class="choices">
+            <button data-diff="easy"><strong>Easy</strong><span>3:30 countdown<br>2 laps for a P rank<br>Timer speeds up a little</span></button>
+            <button data-diff="medium"><strong>Medium</strong><span>6:00 countdown<br>3 laps for a P rank<br>Timer speeds up normally</span></button>
+            <button data-diff="hard"><strong>Hard</strong><span>12:00 countdown<br>4 laps for a P rank<br>Timer speeds up a lot</span></button>
+          </div>
+          <button id="backBtn" class="small">Back</button>
+        </div>
+      </div>
+      <p class="hint">Click the game once so it picks up your keys.</p>
+    </section>
+
+    <section class="band band-red">
+      <h2>How to play</h2>
+      <div class="cards">
+        <article class="card">
+          <h3>Controls</h3>
+          <ul class="keys">
+            <li><kbd>←</kbd><kbd>→</kbd> or <kbd>A</kbd><kbd>D</kbd> move</li>
+            <li><kbd>Space</kbd> jump</li>
+            <li>Hold <kbd>Shift</kbd> to run</li>
+            <li><kbd>T</kbd> taunt</li>
+            <li><kbd>N</kbd> music on/off</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Mach run</h3>
+          <p>Hold Shift and a direction to build speed. At full Mach you smash block walls and Forknights.</p>
+        </article>
+        <article class="card">
+          <h3>The escape</h3>
+          <p>Touch the pillar at the far end of the huge level to start the countdown, then race back to the exit door. Every finished lap makes the timer tick faster.</p>
+        </article>
+        <article class="card">
+          <h3>Ranks</h3>
+          <p>Collect toppings for a D to S rank. For a P rank, get everything and finish all the laps.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band band-yellow">
+      <h2>Power-ups</h2>
+      <div class="cards">
+        <article class="card power">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="19" y="4" width="10" height="6" fill="#fff"/><rect x="20" y="10" width="8" height="8" fill="#bfe8ff" stroke="#1b0f26" stroke-width="2"/><circle cx="24" cy="30" r="14" fill="#bfe8ff" stroke="#1b0f26" stroke-width="3"/><rect x="17" y="26" width="5" height="8" fill="#1b0f26"/><rect x="26" y="26" width="5" height="8" fill="#1b0f26"/></svg>
+          <h3>Ghost potion</h3>
+          <p>Turn half see-through and walk through walls and floating platforms for 10 seconds.</p>
+        </article>
+        <article class="card power">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="19" y="4" width="10" height="6" fill="#fff"/><rect x="20" y="10" width="8" height="8" fill="#5fe36b" stroke="#1b0f26" stroke-width="2"/><circle cx="24" cy="30" r="14" fill="#5fe36b" stroke="#1b0f26" stroke-width="3"/><polygon points="27,21 18,32 24,32 21,41 31,29 25,29" fill="#1b0f26"/></svg>
+          <h3>Speed potion</h3>
+          <p>Walk faster and reach top Mach speed almost instantly for 12 seconds.</p>
+        </article>
+        <article class="card power">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="14" cy="22" rx="13" ry="7" transform="rotate(-35 14 22)" fill="#fff7e0" stroke="#1b0f26" stroke-width="3"/><ellipse cx="34" cy="22" rx="13" ry="7" transform="rotate(35 34 22)" fill="#fff7e0" stroke="#1b0f26" stroke-width="3"/><circle cx="24" cy="28" r="6" fill="#ffc61a" stroke="#1b0f26" stroke-width="3"/></svg>
+          <h3>Bird wings</h3>
+          <p>Jump again in mid-air, as many times as you like, for 15 seconds.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band band-purple">
+      <h2>Difficulties</h2>
+      <div class="cards">
+        <article class="card mode mode-easy"><h3>Easy</h3><p><b>3:30</b> countdown. Two laps for a P rank. The timer speeds up slightly after each lap.</p></article>
+        <article class="card mode mode-medium"><h3>Medium</h3><p><b>6:00</b> countdown. Three laps in one escape for a P rank. The timer speeds up normally after each lap.</p></article>
+        <article class="card mode mode-hard"><h3>Hard</h3><p><b>12:00</b> countdown. Four laps in one escape for a P rank. The timer speeds up a lot after each lap.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>An unofficial fan project. Pizza Tower belongs to Tour De Pizza. All art and music here are made from code.</p>
+  </footer>
+
+  <script src="game.js"></script>
+</body>
+</html>

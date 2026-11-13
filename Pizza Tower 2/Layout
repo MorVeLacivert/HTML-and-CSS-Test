@@ -1,0 +1,128 @@
+# Pizza Tower 2 – Scene Layouts & Code Breakdown
+
+Canvas: **960 × 540**, 60 FPS. Coordinates below are (x, y) from the top-left.
+
+---
+
+## 1. Screen layouts (low-fi)
+
+### Main Menu
+```
++--------------------------------------------------+
+|                                                  |
+|              P I Z Z A   T O W E R   2           |  logo, y≈110
+|                     (pizza icon)                 |  y≈190
+|                                                  |
+|                   > Start <                      |  y≈260
+|                     How to Play                  |
+|                     Options                      |
+|                     Quit                         |
+|                                                  |
+|            Up/Down + Enter (hint, bottom)        |
++--------------------------------------------------+
+```
+Flow: **Start → Difficulty (Easy / Medium / Hard) → Level 1 or Boss Fight → Play**
+
+### Options
+```
++--------------------------------------------------+
+|                     Options                      |
+|  Music Volume     ||||||||..                     |
+|  SFX Volume       ||||||||..                     |
+|  High Contrast    OFF                            |
+|  Text Size        1.0x                           |
+|  Key: Left        A                              |
+|  Key: Right       D                              |
+|  Key: Jump        SPACE                          |
+|  Key: Attack      J                              |
+|  Back                                            |
++--------------------------------------------------+
+```
+(Resolution/fullscreen/graphics are listed in your doc; the browser build scales the canvas automatically, so they're left as a future desktop-only feature.)
+
+### How To Play
+Title, key list (reads from the live key bindings), objective summary, tips. Esc/Enter returns.
+
+### Gameplay (Level 1) – side-scrolling, camera follows the player
+```
++--------------------------------------------------+
+| SCORE 450  TOPPINGS 2/5  KEY: NO  [1]x1 [2]x0 [3]x1 |  HUD bar (0–44)
+|                     00:23.5                      |  escape timer (after pillar)
+|                                                  |
+|        o topping        [JOHN pillar]            |
+|   ====platform====    (key)   | gate |           |
+| [DOOR]  P   <enemy>  <enemy>  ...                |
+|==================================================|  ground y=480
+| message line (bottom)                            |
++--------------------------------------------------+
+```
+World is 3200 px wide: **door (spawn) at far left → maze of platforms, enemies, toppings → key → locked gate at x≈2300 → pillar at far right.**
+
+### Game Over / Victory
+- **Victory:** "LEVEL COMPLETE", score + time bonus, big **rank letter (S/A/B/C/D)**, a pose figure that changes by rank, a per-rank music label, "NEW HIGH SCORE!" or current best, then Retry / Main Menu.
+- **Game Over:** red title, "Pizzaface got you!", defeated pose, Retry / Main Menu.
+
+---
+
+## 2. Game state variables
+
+| Variable | Meaning |
+|---|---|
+| `state` | `menu, difficulty, levels, howto, options, play, result` |
+| `difficulty`, `level_name` | chosen at the menu |
+| `score` | +100 topping, +10 mini food, +50 enemy, +300 boss, +200 pillar, −50 enemy hit, + time bonus |
+| `toppings[]` | bool per topping collected |
+| `has_key` | opens the gate |
+| `p.inv`, `p.potion_t` | potion counts and remaining frames (speed / ghost / fly) |
+| `pillar_alive`, `boss` | triggers for the escape phase |
+| `escape`, `escape_frames` | escape phase + countdown |
+| `pf`, `pf_pos` | Pizzaface (None until countdown hits 0) |
+| `scores{}` | high scores keyed by `"level|difficulty"` |
+
+**No health bar:** enemy hits only knock you back and cost 50 points. Pizzaface touch = instant death.
+
+## 3. Win / Loss
+- **Win:** escape phase active **and** the player touches the start door.
+- **Loss:** Pizzaface touches the player.
+
+## 4. Game loop phases
+1. **Explore** – collect toppings/minis/potions, find the key, open the gate, bash enemies.
+2. **Break the pillar** (or beat the boss) → countdown starts.
+3. **Escape** – run back; when the timer reaches 0 Pizzaface spawns and homes in on you (ignores walls).
+4. **Result** – rank from score, high-score check.
+
+Difficulty only changes timer length and Pizzaface speed (`DIFFICULTY` dict).
+
+## 5. Potions (your unique feature)
+| Key | Potion | Effect (6 s) |
+|---|---|---|
+| 1 | Speed | 1.6× move speed |
+| 2 | Ghost | pass through enemies and gates, no knockback |
+| 3 | Fly | hold Jump to rise, otherwise glide down |
+
+Each level places one of each, so hard sections are *beatable* if you save them wisely.
+
+## 6. Code map (`main.py`)
+| Section | What it does |
+|---|---|
+| Constants | screen size, difficulty table, potions, rank table |
+| `Player`, `Enemy` | small data classes (rect, velocity, timers) |
+| `build_level(kind)` | **all level data** (platforms, toppings, enemies, spawn…) – edit this to design levels |
+| `Game.handle()` | per-state keyboard input (menus, potions, attack) |
+| `Game.update()` | physics → enemies → pickups → pillar → escape/Pizzaface → win/lose |
+| `move_player()` | axis-separated collision against platforms |
+| `draw_*()` | one draw method per screen; `draw_play` + `draw_hud` for gameplay |
+| `main()` | async loop (the `await asyncio.sleep(0)` is what makes it browser-compatible) |
+
+## 7. Controls
+`A`/`D` move · `Space` jump (added, since you need a way to reach platforms) · `J` bash · `1/2/3` potions · `Esc` back to menu. All four main keys are remappable in Options.
+
+## 8. Running it
+- Desktop: `pip install pygame` → `python main.py`
+- Browser: `pip install pygbag` → `pygbag pizza_tower2` (run from the parent folder), open `http://localhost:8000`. `pygbag --build pizza_tower2` makes a folder you can upload to itch.io.
+
+## 9. Next steps
+1. Replace shapes with sprites (`pygame.image.load`) – one per rank pose.
+2. Add audio: `pygame.mixer.music.load("rank_s.ogg")` using the music labels already in `RANKS`.
+3. Add a second maze-like level in `build_level` and a Level 2 entry in the level menu.
+4. Add a P-rank (all toppings + all enemies).
